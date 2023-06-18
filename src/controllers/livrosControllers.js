@@ -4,7 +4,7 @@ class LivroController {
 //funcao responsavel por retornar uma lista com todos os livros cadastrados no banco
     static listarLivros = async (req, res) => {
         try{
-            const livros = await Livro.find()
+            const livro = await Livro.find()
             res.status(200).json(livros);
         }catch(err){
             console.log(err)
