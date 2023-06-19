@@ -4,8 +4,8 @@ class LivroController {
 //funcao responsavel por retornar uma lista com todos os livros cadastrados no banco
     static listarLivros = async (req, res) => {
         try{
-            const livro = await Livro.find()
-            res.status(200).json(livros);
+            const livro = await Livro.find().populate('autor')
+            res.status(200).json(livro);
         }catch(err){
             console.log(err)
             res.status(500).send({"mensage": "Erro interno no servidor"})    
@@ -16,7 +16,7 @@ class LivroController {
     static listarLivro = async (req, res) => {
         try {
             const {id} = req.params;
-            const livro = await Livro.findById({_id : id});
+            const livro = await Livro.findById({_id : id}).populate('autor', 'nome');
             if(!livro) {
                 return res.status(404).send({mensage: "Livro não encontrado!"})
             }
