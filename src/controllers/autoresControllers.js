@@ -28,8 +28,9 @@ class AutorController {
     //Funcao responsavel por cadastra os Autors no banco (não possuindo grandes filtros devido a regra de negocio)
     static cadastraAutor = async (req, res, next) => {
         try {
-            let autor = new Autor(req.body);
-            autor.save();
+            const { nome, nascionalidade} = req.body;
+            let autor = new Autor(nome, nascionalidade);
+            await autor.save();
             res.status(201).send(autor.toJSON());
         }catch(erro){
             next(erro); 

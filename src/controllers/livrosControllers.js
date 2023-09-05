@@ -29,7 +29,7 @@ class LivroController {
     static cadastraLivro = async (req, res, next) => {
         try {
             let livro = new Livro(req.body);
-            livro.save();
+            await livro.save();
             res.status(201).send(livro.toJSON());
             
         }catch(erro){

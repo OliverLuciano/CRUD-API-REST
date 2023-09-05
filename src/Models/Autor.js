@@ -5,7 +5,7 @@ const autorSchema = new mongoose.Schema({
     Id: {type: String},
     nome: { 
         type: String,
-        require: true,
+        required: [true, "O nome do autor é obrigatório."],
     },
     nascionalidade: {type: String}
 },
