@@ -1,4 +1,5 @@
 import Autor from "../Models/Autor.js";
+import NaoEncontrado from "../erros/NaoEncontrado.js";
 
 class AutorController {  
 //funcao responsavel por retornar uma lista com todos os Autors cadastrados no banco
@@ -17,7 +18,7 @@ class AutorController {
             const {id} = req.params;
             const autor = await Autor.findById({_id : id});
             if(!autor) {
-                return res.status(404).send({mensage: "Autor não encontrado!"});
+                next(new NaoEncontrado("ID do autor não encontrado!"));
             }
             res.status(200).json(autor);       
         }catch(erro){
@@ -41,8 +42,13 @@ class AutorController {
     static updateAutor = async (req, res, next) => {
         try {
             const {id} = req.params;
-            await Autor.findByIdAndUpdate(id,{$set: req.body});
-            res.status(200).send({mensage: "Autor atualizado com sucesso."});
+            const autor = await Autor.findByIdAndUpdate(id,{$set: req.body});
+            if(!autor){  
+                next(new NaoEncontrado("ID do autor não encontrado!"));
+            }
+            else{
+                res.status(200).send({mensage: "Autor atualizado com sucesso."});
+            }
         }catch(erro){
             next(erro); 
         }
@@ -52,8 +58,13 @@ class AutorController {
     static deleteAutor = async (req, res, next) => {
         try {
             const {id} = req.params;
-            await Autor.deleteOne({_id: id});
-            res.status(200).send({mensage: "Autor deletado com sucesso!"});
+            const autor = await Autor.findByIdAndDelete({_id: id});
+            if(!autor){  
+                next(new NaoEncontrado("ID do autor não encontrado!"));
+            }
+            else{
+                res.status(200).send({mensage: "Autor atualizado com sucesso."});
+            }
         }catch(erro){
             next(erro); 
         }

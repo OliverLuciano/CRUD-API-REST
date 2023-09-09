@@ -9,7 +9,7 @@ const livroSchema = new mongoose.Schema({
     autor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "autores",
-        required: true
+        required: [true, "O autor é obrigatório!"]
     },
     editora: {
         type: String,
