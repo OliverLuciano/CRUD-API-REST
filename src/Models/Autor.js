@@ -7,7 +7,7 @@ const autorSchema = new mongoose.Schema({
         type: String,
         required: [true, "O nome do autor é obrigatório."],
     },
-    nascionalidade: {type: String}
+    nacionalidade: {type: String}
 },
 {
     versionKey: false

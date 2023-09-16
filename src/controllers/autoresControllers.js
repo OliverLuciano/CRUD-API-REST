@@ -1,4 +1,4 @@
-import Autor from "../Models/Autor.js";
+import  {Autor}   from "../Models/index.js";
 import NaoEncontrado from "../erros/NaoEncontrado.js";
 
 class AutorController {  
@@ -29,8 +29,8 @@ class AutorController {
     //Funcao responsavel por cadastra os Autors no banco (não possuindo grandes filtros devido a regra de negocio)
     static cadastraAutor = async (req, res, next) => {
         try {
-            const { nome, nascionalidade} = req.body;
-            let autor = new Autor(nome, nascionalidade);
+            const { nome, nacionalidade} = req.body;
+            let autor = new Autor({nome, nacionalidade});
             await autor.save();
             res.status(201).send(autor.toJSON());
         }catch(erro){
