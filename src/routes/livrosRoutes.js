@@ -5,6 +5,7 @@ import LivroController from "../controllers/livrosControllers.js";
 const router = Express.Router();
 
 router.get("/livros", LivroController.listarLivros);
+router.get("/livros/busca", LivroController.buscaLivro);
 router.get("/livros/:id", LivroController.listarLivro);
 router.post("/livros", LivroController.cadastraLivro);
 router.put("/livros/:id", LivroController.updateLivro);

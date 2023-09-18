@@ -26,6 +26,24 @@ class LivroController {
         }
     };
 
+    //Funcao responsavel por buscar objetos passando um parametro 
+    static buscaLivro = async (req, res, next) => {
+        try {
+            const busca = {};        
+            const {titulo, editora} = req.query;
+            if(titulo) busca.titulo = titulo;
+            if(editora) busca.editora = editora;
+    
+            const livro = await Livro.find(busca);
+            if(!livro) {
+                next(new NaoEncontrado("Livro não encontrado!"));
+            }
+            res.status(200).json(livro);    
+        }catch(erro){
+            next(erro); 
+        }
+    };
+
     //Funcao responsavel por cadastra os livros no banco (não possuindo grandes filtros devido a regra de negocio)
     static cadastraLivro = async (req, res, next) => {
         try {
